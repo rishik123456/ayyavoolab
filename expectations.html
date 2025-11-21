@@ -71,6 +71,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap; /* Allow wrapping for mobile menu */
         }
 
         .navbar-logo {
@@ -156,6 +157,16 @@
             cursor: pointer;
             margin-left: -30px;
             color: var(--primary-slate-gray);
+        }
+
+        /* === NEW: Hamburger Menu Button === */
+        .navbar-toggler {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--primary-dark-blue);
+            cursor: pointer;
         }
 
 
@@ -313,10 +324,52 @@
         ==========================================================================
         */
         @media (max-width: 768px) {
-            .navbar-links { display: none; }
             .search-bar { display: none; }
             .page-hero h1 { font-size: 2.8rem; }
-            .footer-content { flex-direction: column; gap: 1rem; }
+            
+            /* === NEW: Mobile Nav and Footer Styles === */
+            .navbar .container {
+                flex-wrap: wrap;
+            }
+            .navbar-toggler {
+                display: block; /* Show the hamburger button */
+            }
+
+            .navbar-links {
+                display: none; /* Hide links by default */
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                background: rgba(0, 21, 46, 0.98);
+                padding: 1rem 0;
+                order: 3; /* Make sure it appears below the logo and button */
+            }
+
+            .navbar-links.active {
+                display: flex; /* Show links when toggled */
+            }
+
+            .navbar-links li {
+                margin: 0.75rem 0;
+            }
+            
+            .dropdown-content {
+                position: static;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                background-color: transparent;
+                padding-left: 20px;
+            }
+            
+            .dropdown:hover .dropdown-content {
+                display: block; /* Ensure it stays visible */
+            }
+            
+            .footer-content {
+                flex-direction: column; /* Stack footer items vertically */
+                gap: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -326,17 +379,20 @@
     <nav class="navbar" id="navbar">
         <div class="container">
              <a href="index.html" class="navbar-logo">AYYAVOO<span>LAB</span></a>
+             
+            <!-- NEW: Hamburger Button -->
+            <button class="navbar-toggler" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
             <ul class="navbar-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="project.html">Our Projects</a></li>
                  <li class="dropdown">
                     <span class="dropdown-toggle">About</span>
                     <ul class="dropdown-content">
-
                         <li><a href="team.html">Our Group</a></li>
-                        
                         <li><a href="aboutDrayyavoo.html">About Dr. Ayyavoo</a></li>
-
                     </ul>
                 </li>
                 <li><a href="index.html#join-us">Join Us</a></li>
@@ -563,6 +619,20 @@
             </div>
         </div>
     </footer>
+    
+    <script>
+        // NEW: All JS logic wrapped in DOMContentLoaded for safety
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Mobile Navbar Toggle Logic ---
+            const toggler = document.querySelector('.navbar-toggler');
+            const navLinks = document.querySelector('.navbar-links');
+            if (toggler && navLinks) {
+                toggler.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
