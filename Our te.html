@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team | Ayyavoo Lab</title>
+    <!-- Professional Icon Pack: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*
+        ==========================================================================
+        * ROOT VARIABLES & GLOBAL STYLES (ELECTRIC BLUE THEME)
+        ==========================================================================
+        */
+        :root {
+            --primary-dark-blue: #E6F1FF;    /* Brightest text for headings */
+            --primary-slate-gray: #8892B0;   /* Muted light gray for secondary text */
+            --accent-electric-blue: #007BFF; /* Bright, modern blue for accents */
+            --accent-darker-blue: #0056b3;   /* For button/link hover states */
+            --background-light: #002A5C;    /* Lighter electric blue for cards/sections */
+            --background-white: #0056b3;    /* Deep electric blue for main background */
+
+            --primary-text: #CCD6F6;         /* Light gray-blue for body text */
+            --secondary-text: #8892B0;      /* Muted light gray */
+            --border-color: #233554;         /* Dark blue border */
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.15);
+            --shadow-md: 0 5px 15px rgba(0,0,0,0.2);
+            --border-radius: 0.5rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            line-height: 1.7;
+            color: var(--primary-text);
+            background-color: var(--background-white);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /*
+        ==========================================================================
+        * NAVIGATION BAR (CONSISTENT)
+        ==========================================================================
+        */
+        .navbar {
+            background: rgba(0, 21, 46, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .navbar-scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-dark-blue);
+            text-decoration: none;
+        }
+        .navbar-logo span {
+            font-weight: 400;
+            color: var(--accent-electric-blue);
+        }
+
+        .navbar-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-links li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        .navbar-links a, .dropdown-toggle {
+            color: var(--primary-slate-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding-bottom: 5px;
+            position: relative;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .navbar-links a::after, .dropdown-toggle::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-electric-blue);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-links a:hover, .dropdown:hover .dropdown-toggle {
+            color: var(--accent-electric-blue);
+        }
+
+        .navbar-links a:hover::after, .dropdown:hover .dropdown-toggle::after {
+            width: 100%;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input {
+            border: 1px solid var(--border-color);
+            background-color: var(--background-light);
+            color: var(--primary-text);
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            transition: width 0.3s ease-in-out;
+            width: 150px;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--accent-electric-blue);
+            width: 200px;
+        }
+
+        .search-bar button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: -30px;
+            color: var(--primary-slate-gray);
+        }
+
+        /* Dropdown Styles */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 150%; left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--background-white);
+            min-width: 200px;
+            box-shadow: var(--shadow-md);
+            border-radius: var(--border-radius);
+            z-index: 1;
+            list-style: none;
+            padding: 0.5rem 0; margin: 0;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, top 0.3s ease, visibility 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block; opacity: 1;
+            visibility: visible; top: 100%;
+        }
+
+        .dropdown-content a {
+            font-weight: 400; color: var(--primary-slate-gray);
+            padding: 12px 20px; text-decoration: none;
+            display: block; text-align: left; font-size: 0.95rem;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--background-light);
+            color: var(--accent-electric-blue);
+        }
+        .dropdown-content a::after { display: none; }
+
+
+        /*
+        ==========================================================================
+        * TEAM HERO SECTION
+        ==========================================================================
+        */
+        .team-hero {
+            background-color: var(--background-light);
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .team-hero h1 {
+            font-size: 3.5rem;
+            margin: 0 0 1rem 0;
+            position: relative;
+            display: inline-block;
+            color: var(--primary-dark-blue);
+        }
+
+        .team-hero h1::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-electric-blue);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        .team-hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 2rem auto 0 auto;
+            color: var(--secondary-text);
+        }
+
+
+        /*
+        ==========================================================================
+        * TEAM SECTION
+        ==========================================================================
+        */
+        #team {
+            padding: 100px 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .team-card {
+            background: var(--background-light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            padding: 2.5rem 2rem;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .team-photo {
+            width: 100%;
+            max-width: 200px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            object-position: center;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            border: 5px solid var(--background-light);
+            box-shadow: 0 0 0 3px var(--accent-electric-blue), var(--shadow-sm);
+        }
+
+
+        .team-card h3 {
+            margin-bottom: 0.25rem;
+            font-size: 1.5rem;
+            color: var(--primary-dark-blue);
+        }
+
+        .team-card .role {
+            color: var(--accent-electric-blue);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* === UPDATED BIO & DROPDOWN STYLES === */
+        .team-card .bio {
+            font-size: 0.95rem;
+            color: var(--secondary-text);
+            line-height: 1.6;
+            margin-bottom: 0; /* Removed bottom margin to be next to button */
+            transition: max-height 0.5s ease-in-out;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bio.collapsed {
+             max-height: 9rem; /* Approx 5-6 lines */
+             -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+             mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        }
+
+        .bio.expanded {
+            max-height: 1000px; /* Large value to ensure all content shows */
+            -webkit-mask-image: none;
+            mask-image: none;
+        }
+
+        .read-more-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--primary-slate-gray);
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: none; /* Hidden by default, shown via JS if needed */
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+            background-color: var(--accent-darker-blue);
+            color: var(--primary-dark-blue);
+        }
+
+        .read-more-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .read-more-btn.expanded i {
+            transform: rotate(180deg);
+        }
+        /* === END OF NEW STYLES === */
+
+
+        .team-social-links a {
+            color: var(--primary-slate-gray);
+            text-decoration: none;
+            font-size: 1.5rem;
+            margin: 0 0.75rem;
+            transition: color 0.3s ease;
+        }
+
+        .team-social-links a:hover {
+            color: var(--accent-electric-blue);
+        }
+
+        /*
+        ==========================================================================
+        * FOOTER
+        ==========================================================================
+        */
+        footer#contact {
+            background: var(--background-white);
+            color: var(--secondary-text); 
+            padding: 50px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            display: flex; justify-content: space-between;
+            align-items: center; flex-wrap: wrap;
+            gap: 1rem; text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem; font-weight: bold;
+            color: var(--primary-dark-blue);
+        }
+        .footer-logo span {
+            font-weight: 400;
+            color: var(--accent-electric-blue);
+        }
+
+        .footer-links a {
+            color: var(--secondary-text); 
+            text-decoration: none;
+            margin: 0 10px; transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--accent-electric-blue); }
+        .footer-links i { margin-right: 5px; }
+
+        /*
+        ==========================================================================
+        * ANIMATIONS & RESPONSIVENESS
+        ==========================================================================
+        */
+        .reveal {
+            opacity: 0;
+            transform: translateY(80px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 992px) {
+            .team-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links { display: none; }
+            .search-bar { display: none; }
+            .team-hero h1 { font-size: 2.8rem; }
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======================= NAVIGATION BAR ======================= -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-logo">AYYAVOO<span>LAB</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="project.html">Our Projects</a></li>
+                <li class="dropdown">
+                    <span class="dropdown-toggle">About</span>
+                    <ul class="dropdown-content">
+                       
+                        <li><a href="Our te.html">Our Group</a></li>
+                        <li><a href="aboutDrayyavoo.html">About Dr. Ayyavoo</a></li>
+
+                    </ul>
+                </li>
+                <li><a href="index.html#join-us">Join Us</a></li>
+            </ul>
+             <div class="search-bar">
+                <input type="search" placeholder="Search...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ======================= TEAM HERO SECTION ======================= -->
+    <header class="team-hero">
+        <div class="container">
+            <h1>Meet Our Team</h1>
+            <p>Our lab is powered by a diverse and dedicated group of scientists, researchers, and students committed to advancing our understanding of neurovirology.</p>
+        </div>
+    </header>
+
+    <!-- ======================= TEAM GRID SECTION ======================= -->
+    <main id="team">
+        <div class="container">
+            <div class="team-grid">
+
+                <!-- Team Member 1 -->
+                <div class="team-card reveal">
+                    <img src="Velpandi Ayyavoo for web.png" alt="Photo of Dr. Velpandi Ayyavoo" class="team-photo">
+                    <h3>Dr. Velpandi Ayyavoo</h3>
+                    <p class="role">Principal Investigator</p>
+                    <p class="bio">Dr. Ayyavoo leads the lab with a focus on HIV pathogenesis in the central nervous system. His work combines molecular virology and neuroscience to develop novel therapeutic strategies.</p>
+                    <button class="read-more-btn" aria-label="Toggle bio"><i class="fas fa-chevron-down"></i></button>
+                    <div class="team-social-links">
+                        <a href="mailto:velpandi@pitt.edu" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="team-card reveal">
+                    <img src="IMG_2507.HEIC" alt="Photo of Dr. Jane Doe" class="team-photo">
+                    <h3>Roberta Souza Dos
+</h3>
+                    <p class="role">Postdoctoral Researcher</p>
+                    <p class="bio">I am driven by a long-standing fascination with how pathogens hijack and reshape cellular processes causing diseases, particularly within the central nervous system. At the University of Pittsburgh, my PhD research focused on how HIV disrupts synaptic integrity, specifically the neurogranin dysregulation in the brains of PWH. Under Dr. Ayyavoo’s mentorship, I established cutting-edge human brain organoid models to study HIV-associated neuropathogenesis in vitro. Now, as a postdoctoral researcher, I use these models to investigate neuroimmune interactions underlying dementia, bridging virology, neuroscience and neuroimmunology. This integrative approach let to my selection as an Alzheimer’s Association awardee (2023-2026). Outside the lab, I enjoy road tripping with my family and attending musicals and concerts around Pittsburgh.</p>
+                    <button class="read-more-btn" aria-label="Toggle bio"><i class="fas fa-chevron-down"></i></button>
+                     <div class="team-social-links">
+                        <a href="#" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="team-card reveal">
+                    <img src="Sathish-min.jpeg" alt="Photo of Satish Selvam" class="team-photo">
+                    <h3>Sathish Selvam</h3>
+                    <p class="role">Postdoctoral Researcher</p>
+                    <p class="bio">I completed my Ph.D in Biotechnology, Bharathidasan University, India. My current research focuses on understanding mechanism of HIV-1 latency using hiPSC-derived brain organoid models to study neuroinflammation and blood-brain barrier interaction.</p>
+                    <button class="read-more-btn" aria-label="Toggle bio"><i class="fas fa-chevron-down"></i></button>
+                     <div class="team-social-links">
+                        <a href="mailto:SAS1133@pitt.edu" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <!-- Team Member 4 -->
+                <div class="team-card reveal">
+                    <img src="Screen Shot 2023-11-08 at 2.08.08 PM.png" alt="Photo of Emily White" class="team-photo">
+                    <h3>Indea Stroeve Rogers</h3>
+                    <p class="role">Ph.D. student</p>
+                    <p class="bio">I grew up in a small town called Nederland in Colorado and completed my MS in Public Health Microbiology and Emerging Infectious Diseases from the George Washington University. There I studied parasitic infections, specifically hookworm and trypanosomes, and aim to understand infectious diseases through a One Health approach.  I enjoy climbing mountains or really anything that gets you outside, climbing, rafting etc. as well as traveling and trying new foods. A fun fact is that I have hiked up to just under 23,000 ft! </p>
+                    <button class="read-more-btn" aria-label="Toggle bio"><i class="fas fa-chevron-down"></i></button>
+                     <div class="team-social-links">
+                        <a href="#" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                         <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <!-- Team Member 5 -->
+                <div class="team-card reveal">
+                    <img src="MARC.png" alt="Photo of Michael Brown" class="team-photo">
+                    <h3>Marc C.E. Wagner</h3>
+                    <p class="role">Staff Researcher/Lab Manager</p>
+                    <p class="bio">University of Pittsburgh Department of Infectious Diseases and Microbiology, AIDS Cure Research Collaborative, I4C (Immunotherapy for an HIV Cure- Martin Delaney Collaboratories) , National CAB member of the MACS/WIHS Combined Cohort Study (MWCCS), CAB member for the Pitt Men’s Study, AIDS Free Pittsburgh, University of Pittsburgh Clinical Research Site (CRS) and Shepherd Wellness Community.
+
+                    I was born and raised in Pittsburgh but have lived in Philadelphia while working at the University of Pennsylvania. My journey started early on as I acquired HIV between my first study visit in 1984 and my second visit in 1985. I have now lived much longer with HIV than without it. This has offered me a breath of experience of the impact the disease holds on those living with HIV. I now find myself working on how HIV impacts the human brain. I work on a variety of HIV basic science and cure related organizations.
+
+                    Beyond science I enjoy gardening with a passion for everything related to frogs. I even created an oasis for them in my backyard. You can take a glimps of it at Marc’s Amazing Backyard (I https://sites.google.com/site/marcsamazingbackyard ) I also enjoy spending time with good friends making meaningful memories together.</p>
+                    <button class="read-more-btn" aria-label="Toggle bio"><i class="fas fa-chevron-down"></i></button>
+                     <div class="team-social-links">
+                        <a href="#" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                         <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <!-- Team Member 6 -->
+                <div class="team-card reveal">
+                    <img src="20251030_185329~2.jpg" alt="Photo of Dr. Beatrice" class="team-photo">
+                    <h3>Beatriz Moreira Rodrigues</h3>
+                    <p class="role">PhD Student</p>
+                    <p class="bio">I’m a PhD student visiting from Brazil. My research focuses on the interaction between latent HIV and SARS-CoV-2 in the brain, using human microglia and organoid models.Outside of work, I enjoy staying active, walking in parks, reading, cooking, learning new things, traveling, going to concerts, and visiting museums. Passionate about science, technology, and communication, I believe in the positive impact of integrating these fields to improve people’s lives and build a more sustainable future</p>
+                    <button class="read-more-btn" aria-label="Toggle bio"><i class="fas fa-chevron-down"></i></button>
+                     <div class="team-social-links">
+                        <a href="#" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <!-- Team Member 7 -->
+                <div class="team-card reveal">
+                    <img src="IMG_1685.jpeg" alt="Photo of Sarah Green" class="team-photo">
+                    <h3>Rishi Krishnakumar</h3>
+                    <p class="role">Undergraduate Student</p>
+                    <p class="bio">I’m a freshman pursuing a major in Molecular Biology with plans to attend medical school. Outside of academics, I enjoy weightlifting, playing football, and spending time with friends.</p>
+                    <button class="read-more-btn" aria-label="Toggle bio"><i class="fas fa-chevron-down"></i></button>
+                     <div class="team-social-links">
+                        <a href="#" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+
+                <!-- Team Member 7 -->
+                <div class="team-card reveal">
+                    <img src="lab photo.jpg" alt="Photo of Sarah Green" class="team-photo">
+                    <h3>Grant West</h3>
+                    <p class="role">Undergraduate Student</p>
+                    <p class="bio">I'm a senior Biological Sciences student from Butler, PA, and plan to pursue a PhD in Infectious Diseases at the University of Pittsburgh. Outside of lab, I love channeling my energy into rugby, wakeboarding, and hiking with my four Labradors: Una, Margot, Rosa, and Georgie.</p>
+                    <button class="read-more-btn" aria-label="Toggle bio"><i class="fas fa-chevron-down"></i></button>
+                     <div class="team-social-links">
+                        <a href="#" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ======================= FOOTER ======================= -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">AYYAVOO<span>LAB</span></div>
+                <div class="footer-links">
+                    <a href="mailto:email@example.com"><i class="fa-solid fa-envelope"></i> Contact</a>
+                    <a href="https://www.pitt.edu" target="_blank"><i class="fa-solid fa-university"></i> University of Pittsburgh</a>
+                    <a href="https://publichealth.pitt.edu/" target="_blank"><i class="fa-solid fa-school"></i> School of Public Health</a>
+                </div>
+                <p>&copy; 2025 Ayyavoo Lab. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add shadow to navbar on scroll
+        const navbar = document.getElementById('navbar');
+        window.onscroll = function () {
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        };
+
+        // Fade-in reveal animation on scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Initial check in case elements are already in view
+        reveal();
+
+        // Bio dropdown logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const teamCards = document.querySelectorAll('.team-card');
+
+            teamCards.forEach(card => {
+                const bio = card.querySelector('.bio');
+                const button = card.querySelector('.read-more-btn');
+
+                // Approximate height for 5-6 lines (0.95rem font * 1.6 line-height * 6 lines)
+                const collapsedPixelHeight = 144; 
+
+                // Check if the bio text is overflowing its collapsed state
+                if (bio.scrollHeight > collapsedPixelHeight) {
+                    // If it overflows, add the collapsed class and show the button
+                    bio.classList.add('collapsed');
+                    button.style.display = 'inline-flex';
+
+                    // Add click event to toggle the bio's expanded state
+                    button.addEventListener('click', () => {
+                        bio.classList.toggle('expanded');
+                        bio.classList.toggle('collapsed');
+                        button.classList.toggle('expanded');
+                    });
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
