@@ -114,6 +114,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap; /* Allow wrapping for mobile menu */
         }
 
         .navbar-logo {
@@ -253,6 +254,16 @@
             color: var(--accent-electric-blue);
         }
         .dropdown-content a::after { display: none; }
+        
+        /* === NEW: Hamburger Menu Button === */
+        .navbar-toggler {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--primary-dark-blue);
+            cursor: pointer;
+        }
 
         /*
         ==========================================================================
@@ -373,15 +384,12 @@
         .gallery-grid {
             display: grid;
             gap: 1.5rem;
-            /* Using 4 columns on desktop for a more dynamic "mosaic" layout */
             grid-template-columns: repeat(4, 1fr);
-            /* We'll set a standard row height that items can span across */
             grid-auto-rows: 260px;
-            grid-auto-flow: dense; /* Allows items to fill gaps, creating the mosaic effect */
+            grid-auto-flow: dense;
         }
 
         .gallery-item {
-            /* Height is now controlled by row spans, not a fixed value */
             background-color: #e9ecef;
             border-radius: var(--border-radius);
             background-position: center;
@@ -395,25 +403,10 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* These rules create the dynamic mosaic. They only apply on desktop. */
-        .gallery-item:nth-child(1) {
-            grid-column: span 2;
-            grid-row: span 2;
-        }
-
-        .gallery-item:nth-child(3) {
-            grid-row: span 2;
-        }
-
-        .gallery-item:nth-child(5) {
-            grid-column: span 2;
-        }
-
-        .gallery-item:nth-child(7) {
-            grid-column: span 2;
-        }
-
-        /* This class is no longer used, so we reset it to avoid conflicts. */
+        .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+        .gallery-item:nth-child(3) { grid-row: span 2; }
+        .gallery-item:nth-child(5) { grid-column: span 2; }
+        .gallery-item:nth-child(7) { grid-column: span 2; }
         .gallery-item.wide { grid-column: auto; }
 
 
@@ -487,15 +480,15 @@
         ==========================================================================
         */
         #join-us {
-            background-color: var(--background-light); /* Use lighter navy */
+            background-color: var(--background-light);
             color: var(--primary-text); text-align: center;
         }
 
         #join-us .section-title { color: var(--primary-dark-blue); }
-        #join-us .section-subtitle { color: rgba(204, 214, 246, 0.8); } /* Lighter text color */
+        #join-us .section-subtitle { color: rgba(204, 214, 246, 0.8); }
         #join-us .btn {
             background: var(--primary-dark-blue);
-            color: var(--background-white); /* Dark blue text */
+            color: var(--background-white);
         }
         #join-us .btn:hover {
             background: #fff;
@@ -509,7 +502,7 @@
         ==========================================================================
         */
         footer#contact {
-            background: var(--background-white); /* Main dark background */
+            background: var(--background-white);
             color: var(--secondary-text); padding: 50px 0;
         }
 
@@ -566,9 +559,6 @@
         }
 
         @media (max-width: 992px) {
-            .navbar .container { flex-wrap: wrap; justify-content: space-between; }
-            .navbar-links { order: 3; width: 100%; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
-            .navbar-right-items { order: 2; }
             .hero-content { flex-direction: column; text-align: center; }
             .hero-text { max-width: 100%; }
             .hero-image-placeholder {
@@ -577,14 +567,12 @@
             }
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
-                grid-auto-rows: 260px; /* Keep row height consistent */
+                grid-auto-rows: 260px;
             }
-            /* Reset all special spans for a simpler tablet layout */
             .gallery-item:nth-child(n) {
                 grid-column: auto;
                 grid-row: auto;
             }
-            /* We can make the first item wide on tablet for some visual interest */
             .gallery-item:nth-child(1) {
                 grid-column: span 2;
             }
@@ -592,22 +580,61 @@
         }
 
         @media (max-width: 768px) {
-            /* This rule was removed to ensure the navbar links are visible on mobile: .navbar-links { display: none; } */
-            .search-bar { display: none; } /* Hide search bar on very small screens to make space */
-            .pitt-logo-link img { height: 40px; }
             .section-title { font-size: 2.2rem; }
             .hero-text h1 { font-size: 2.8rem; }
             .gallery-grid {
                 grid-template-columns: 1fr;
-                grid-auto-rows: 260px; /* Keep row height consistent */
+                grid-auto-rows: 260px;
             }
-            /* Reset all special spans for mobile */
             .gallery-item:nth-child(n) {
                 grid-column: auto;
                 grid-row: auto;
             }
-            .footer-content { flex-direction: column; gap: 1.5rem; }
             .charts-container { padding: 1.5rem; }
+
+            /* === NEW: Mobile Nav and Footer Styles === */
+            .navbar-right-items { 
+                display: none; 
+            }
+            .navbar-toggler {
+                display: block; /* Show the hamburger button */
+            }
+
+            .navbar-links {
+                display: none; /* Hide links by default */
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                background: rgba(0, 21, 46, 0.98);
+                padding: 1rem 0;
+                order: 3; /* Make sure it appears below the logo and button */
+            }
+
+            .navbar-links.active {
+                display: flex; /* Show links when toggled */
+            }
+
+            .navbar-links li {
+                margin: 0.75rem 0;
+            }
+            
+            .dropdown-content {
+                position: static;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                background-color: transparent;
+                padding-left: 20px;
+            }
+            
+            .dropdown:hover .dropdown-content {
+                display: block; /* Ensure it stays visible */
+            }
+            
+            .footer-content {
+                flex-direction: column; /* Stack footer items vertically */
+                gap: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -619,13 +646,18 @@
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="index.html" class="navbar-logo">AYYAVOO<span>LAB</span></a>
+            
+            <!-- NEW: Hamburger Button -->
+            <button class="navbar-toggler" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
             <ul class="navbar-links">
                 <li><a href="index.html#home">Home</a></li>
                 <li><a href="project.html">Our Research</a></li>
                 <li class="dropdown">
                     <span class="dropdown-toggle">Our Team</span>
                     <ul class="dropdown-content">
-
                         <li><a href="Our te.html">Our Group</a></li>
                         <li><a href="aboutDrayyavoo.html">About Dr. Ayyavoo</a></li>
                         <li><a href="expectations.html">Our Alumni</a></li>
@@ -768,47 +800,63 @@
 
     <!-- Custom JavaScript for animations -->
     <script>
-        // Add shadow to navbar on scroll
-        const navbar = document.getElementById('navbar');
-        window.onscroll = function () {
-            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-                navbar.classList.add('navbar-scrolled');
-            } else {
-                navbar.classList.remove('navbar-scrolled');
-            }
-            scrollFunction();
-        };
+        // --- All JS logic wrapped in DOMContentLoaded for safety ---
+        document.addEventListener('DOMContentLoaded', function() {
 
-        // Fade-in reveal animation on scroll
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
+            // --- Mobile Navbar Toggle Logic ---
+            const toggler = document.querySelector('.navbar-toggler');
+            const navLinks = document.querySelector('.navbar-links');
+            if (toggler && navLinks) {
+                toggler.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+            }
+
+            // --- Scroll-based Logic ---
+            const navbar = document.getElementById('navbar');
+            const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+            window.onscroll = function () {
+                // Navbar shadow
+                if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                    navbar.classList.add('navbar-scrolled');
                 } else {
-                    reveals[i].classList.remove("active");
+                    navbar.classList.remove('navbar-scrolled');
+                }
+                
+                // Scroll to top button visibility
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    scrollTopBtn.style.display = "block";
+                } else {
+                    scrollTopBtn.style.display = "none";
+                }
+                
+                // Reveal elements on scroll
+                reveal();
+            };
+
+            // --- Reveal elements on scroll function ---
+            function reveal() {
+                var reveals = document.querySelectorAll(".reveal");
+                for (var i = 0; i < reveals.length; i++) {
+                    var windowHeight = window.innerHeight;
+                    var elementTop = reveals[i].getBoundingClientRect().top;
+                    var elementVisible = 150;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add("active");
+                    } else {
+                        reveals[i].classList.remove("active");
+                    }
                 }
             }
-        }
-        window.addEventListener("scroll", reveal);
-        reveal(); // Initial call
+            reveal(); // Initial call
 
-        // Scroll to top button logic
-        var scrollTopBtn = document.getElementById("scrollTopBtn");
-        function scrollFunction() {
-            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-                scrollTopBtn.style.display = "block";
-            } else {
-                scrollTopBtn.style.display = "none";
+            // --- Scroll to top function ---
+            window.scrollToTop = function() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
             }
-        }
-        function scrollToTop() {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        }
+        });
     </script>
 </body>
 </html>
