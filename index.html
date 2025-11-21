@@ -254,7 +254,7 @@
             color: var(--accent-electric-blue);
         }
         .dropdown-content a::after { display: none; }
-        
+
         /* === NEW: Hamburger Menu Button === */
         .navbar-toggler {
             display: none;
@@ -409,31 +409,56 @@
         .gallery-item:nth-child(7) { grid-column: span 2; }
         .gallery-item.wide { grid-column: auto; }
 
-
         /*
         ==========================================================================
-        * HIV OVERVIEW & STATS SECTION
+        * HIV OVERVIEW & STATS SECTION (IMPROVED)
         ==========================================================================
         */
-        .hiv-text-content {
+        #hiv-overview {
+            background-color: var(--background-light); /* Give the whole section a background */
+        }
+
+        #hiv-overview .container {
+            max-width: 1100px;
+        }
+
+        #hiv-overview .section-subtitle { /* Make subtitle more visible on this background */
+            color: var(--primary-text);
             max-width: 800px;
-            margin: 0 auto 4rem auto;
-            text-align: center;
+        }
+
+        .hiv-content-wrapper {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr;
+            gap: 3rem;
+            align-items: center; /* Vertically center the items in the grid */
         }
 
         .hiv-text-content h3 {
-            color: var(--primary-dark-blue); font-size: 2rem;
-            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            color: var(--primary-dark-blue);
+            margin-top: 0; /* Remove top margin if it's the first child */
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .hiv-text-content p {
+            text-align: left;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--primary-text);
         }
 
         .who-quote {
-            background-color: var(--background-light);
+            background-color: var(--background-white); /* Make it stand out more */
             border-left: 5px solid var(--accent-electric-blue);
-            padding: 1.5rem;
-            margin: 2rem auto;
+            padding: 2rem;
+            margin: 0;
             font-style: italic;
             color: var(--primary-slate-gray);
             text-align: left;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
         }
 
         .who-quote footer {
@@ -443,58 +468,48 @@
             color: var(--primary-dark-blue);
         }
 
-        .charts-container {
-            background-color: var(--background-light);
-            padding: 3rem;
-            border-radius: var(--border-radius);
-        }
-
-        .our-world-charts-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        .chart-card {
-            background-color: var(--background-white);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-sm);
-            padding: 1rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .chart-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .chart-card iframe {
-            border-radius: calc(var(--border-radius) - 1rem);
-        }
-
-
         /*
         ==========================================================================
-        * JOIN US SECTION
+        * JOIN US SECTION (IMPROVED)
         ==========================================================================
         */
         #join-us {
+            background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .join-us-content {
             background-color: var(--background-light);
-            color: var(--primary-text); text-align: center;
+            padding: 4rem 2rem;
+            border-radius: var(--border-radius);
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: var(--shadow-md);
+            text-align: center;
         }
 
-        #join-us .section-title { color: var(--primary-dark-blue); }
-        #join-us .section-subtitle { color: rgba(204, 214, 246, 0.8); }
-        #join-us .btn {
+        .join-us-content .section-title {
+            color: var(--primary-dark-blue);
+        }
+        
+        .join-us-content .section-subtitle {
+            color: rgba(204, 214, 246, 0.8);
+            margin-bottom: 2rem;
+        }
+        
+        .join-us-content .btn {
             background: var(--primary-dark-blue);
             color: var(--background-white);
         }
-        #join-us .btn:hover {
+        
+        .join-us-content .btn:hover {
             background: #fff;
-            color: var(--background-white);
+            color: var(--background-light);
         }
-        #join-us .btn i { margin-left: 8px; }
+        
+        .join-us-content .btn i {
+            margin-left: 8px;
+        }
 
         /*
         ==========================================================================
@@ -563,7 +578,9 @@
             .hero-text { max-width: 100%; }
             .hero-image-placeholder {
                 width: 100%; max-width: 500px;
-                height: 400px; margin-top: 2rem;
+                height: auto;
+                aspect-ratio: 4 / 3;
+                margin-top: 2rem;
             }
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -576,12 +593,24 @@
             .gallery-item:nth-child(1) {
                 grid-column: span 2;
             }
-            .our-world-charts-grid { grid-template-columns: 1fr; }
+            /* NEW: Collapse HIV section grid */
+            .hiv-content-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .hiv-text-content h3, .hiv-text-content p {
+                text-align: center; /* Re-center text on mobile */
+            }
+            .who-quote {
+                margin: 2rem auto 0 auto;
+            }
         }
 
         @media (max-width: 768px) {
             .section-title { font-size: 2.2rem; }
             .hero-text h1 { font-size: 2.8rem; }
+            .hero-image-placeholder {
+                aspect-ratio: 1 / 1;
+            }
             .gallery-grid {
                 grid-template-columns: 1fr;
                 grid-auto-rows: 260px;
@@ -590,7 +619,6 @@
                 grid-column: auto;
                 grid-row: auto;
             }
-            .charts-container { padding: 1.5rem; }
 
             /* === NEW: Mobile Nav and Footer Styles === */
             .navbar-right-items { 
@@ -617,7 +645,7 @@
             .navbar-links li {
                 margin: 0.75rem 0;
             }
-            
+
             .dropdown-content {
                 position: static;
                 transform: none;
@@ -626,11 +654,11 @@
                 background-color: transparent;
                 padding-left: 20px;
             }
-            
+
             .dropdown:hover .dropdown-content {
                 display: block; /* Ensure it stays visible */
             }
-            
+
             .footer-content {
                 flex-direction: column; /* Stack footer items vertically */
                 gap: 1.5rem;
@@ -646,7 +674,7 @@
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="index.html" class="navbar-logo">AYYAVOO<span>LAB</span></a>
-            
+
             <!-- NEW: Hamburger Button -->
             <button class="navbar-toggler" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
@@ -691,23 +719,24 @@
             </div>
         </div>
     </header>
-    <!-- ======================= HIV OVERVIEW & STATS ======================= -->
+    
+    <!-- ======================= HIV OVERVIEW & STATS (IMPROVED) ======================= -->
     <section id="hiv-overview" class="reveal">
         <div class="container">
             <h2 class="section-title">Understanding HIV & Its Global Impact</h2>
-
-            <div class="hiv-text-content">
-                <h3>A Persistent Global Challenge</h3>
-                <p>Human Immunodeficiency Virus (HIV) attacks the immune system, and if untreated, can lead to Acquired Immunodeficiency Syndrome (AIDS). While antiretroviral therapy (ART) allows people with HIV to live long, healthy lives, the virus remains a major public health issue. Early in the infection, HIV can enter the brain, leading to HIV-associated neurocognitive disorders (HAND), which can cause confusion, memory loss, and behavioral changes.</p>
-                 <blockquote class="who-quote">
-                    <p>"An estimated 40.8 million [37.0 – 45.6 million] people were living with HIV at the end of 2024."</p>
-                    <footer>—World Health Organization</footer>
-                </blockquote>
+            <p class="section-subtitle">While great strides have been made, HIV remains a major public health issue affecting millions worldwide. Early in the infection, the virus can enter the brain, leading to significant neurological challenges.</p>
+            <div class="hiv-content-wrapper">
+                <div class="hiv-text-content">
+                    <h3>A Persistent Global Challenge</h3>
+                    <p>Human Immunodeficiency Virus (HIV) attacks the immune system, and if untreated, can lead to Acquired Immunodeficiency Syndrome (AIDS). While antiretroviral therapy (ART) allows people with HIV to live long, healthy lives, it does not fully eradicate the virus. Neurological complications, such as HIV-associated neurocognitive disorders (HAND), can persist and cause confusion, memory loss, and behavioral changes.</p>
+                </div>
+                <div class="hiv-side-info">
+                     <blockquote class="who-quote">
+                        <p>"An estimated 40.8 million [37.0 – 45.6 million] people were living with HIV at the end of 2024."</p>
+                        <footer>—World Health Organization</footer>
+                    </blockquote>
+                </div>
             </div>
-
-
-            </div>
-
         </div>
     </section>
 
@@ -773,12 +802,14 @@
             </div>
         </section>
 
-        <!-- ======================= JOIN US SECTION ======================= -->
+        <!-- ======================= JOIN US SECTION (IMPROVED) ======================= -->
         <section id="join-us">
             <div class="container">
-                <h2 class="section-title">Join Our Team</h2>
-                <p class="section-subtitle">We are always looking for passionate and driven individuals to join our quest to understand and combat neuroAIDS. If you are a prospective graduate student or postdoctoral fellow with a background in virology or neuroscience, we encourage you to get in touch.</p>
-                <a href="mailto:velpandi@pitt.edu" class="btn">Contact Us <i class="fa-solid fa-arrow-right"></i></a>
+                <div class="join-us-content">
+                    <h2 class="section-title">Join Our Team</h2>
+                    <p class="section-subtitle">We are always looking for passionate and driven individuals to join our quest to understand and combat neuroAIDS. If you are a prospective graduate student or postdoctoral fellow with a background in virology or neuroscience, we encourage you to get in touch.</p>
+                    <a href="mailto:velpandi@pitt.edu" class="btn">Contact Us <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
             </div>
         </section>
     </main>
@@ -823,14 +854,14 @@
                 } else {
                     navbar.classList.remove('navbar-scrolled');
                 }
-                
+
                 // Scroll to top button visibility
                 if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
                     scrollTopBtn.style.display = "block";
                 } else {
                     scrollTopBtn.style.display = "none";
                 }
-                
+
                 // Reveal elements on scroll
                 reveal();
             };
