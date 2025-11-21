@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Projects & Lab Expectations | Ayyavoo Lab</title>
+    <!-- Professional Icon Pack: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*
+        ==========================================================================
+        * ROOT VARIABLES & GLOBAL STYLES (ELECTRIC BLUE THEME)
+        ==========================================================================
+        */
+        :root {
+            --primary-dark-blue: #E6F1FF;    /* Brightest text for headings */
+            --primary-slate-gray: #CCD6F6;   /* Muted light gray for secondary text - Increased brightness for visibility */
+            --accent-electric-blue: #090640; /* Bright, modern blue for accents */
+            --accent-darker-blue: #0056b3;   /* For button/link hover states */
+            --accent-yellow-highlight: #FFC107; /* Amber yellow for subtle highlights */
+            --background-light: #002A5C;    /* Lighter electric blue for cards/sections */
+            --background-white: #0056b3;    /* Deep electric blue for main background */
+
+            --primary-text: #E6F1FF;         /* Light gray-blue for body text - Increased brightness for visibility */
+            --secondary-text: #CCD6F6;      /* Muted light gray - Increased brightness for visibility */
+            --border-color: #233554;         /* Dark blue border */
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.15);
+            --shadow-md: 0 5px 15px rgba(0,0,0,0.2);
+            --border-radius: 0.5rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            line-height: 1.8;
+            color: var(--primary-text);
+            background-color: var(--background-white);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /*
+        ==========================================================================
+        * NAVIGATION BAR (CONSISTENT)
+        ==========================================================================
+        */
+        .navbar {
+            background: rgba(0, 21, 46, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .navbar-scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-dark-blue);
+            text-decoration: none;
+        }
+        .navbar-logo span {
+            font-weight: 400;
+            color:#007BFF;
+        }
+
+        .navbar-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-links li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        .navbar-links a, .dropdown-toggle {
+            color: var(--primary-slate-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding-bottom: 5px;
+            position: relative;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .navbar-links a::after, .dropdown-toggle::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--background-white);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-links a:hover, .dropdown:hover .dropdown-toggle {
+            color: var(--accent-electric-blue);
+        }
+
+        .navbar-links a:hover::after, .dropdown:hover .dropdown-toggle::after {
+            width: 100%;
+        }
+
+        .search-bar { display: flex; align-items: center; }
+        .search-bar input {
+            border: 1px solid var(--border-color);
+            background-color: var(--background-light);
+            color: var(--primary-text);
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            transition: width 0.3s ease-in-out;
+            width: 150px;
+        }
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--accent-electric-blue);
+            width: 200px;
+        }
+        .search-bar button {
+            background: none; border: none; cursor: pointer;
+            margin-left: -30px; color: var(--primary-slate-gray);
+        }
+        .dropdown-content {
+            display: none; position: absolute; top: 150%; left: 50%;
+            transform: translateX(-50%); background-color: var(--background-white);
+            min-width: 200px; box-shadow: var(--shadow-md);
+            border-radius: var(--border-radius); z-index: 1;
+            list-style: none; padding: 0.5rem 0; margin: 0;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, top 0.3s ease, visibility 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+        .dropdown:hover .dropdown-content {
+            display: block; opacity: 1; visibility: visible; top: 100%;
+        }
+        .dropdown-content a {
+            font-weight: 400; color: var(--primary-slate-gray); padding: 12px 20px;
+            text-decoration: none; display: block; text-align: left; font-size: 0.95rem;
+        }
+        .dropdown-content a:hover {
+            background-color: var(--background-light); color: var(--accent-electric-blue);
+        }
+        .dropdown-content a::after { display: none; }
+
+        /*
+        ==========================================================================
+        * PROJECTS SECTION STYLES
+        ==========================================================================
+        */
+        .projects-hero {
+            background-color: var(--background-light);
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .projects-hero h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+            color: var(--primary-dark-blue);
+        }
+
+        .projects-hero h1::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-electric-blue);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        #projects {
+            padding-bottom: 100px;
+        }
+
+        .project-item {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 120px;
+        }
+
+        .project-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .project-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .project-text {
+            flex: 1.2;
+        }
+
+        .project-text h2 {
+            font-size: 2.2rem;
+            color: var(--primary-dark-blue);
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .project-text h2 .highlight {
+            color: var(--accent-electric-blue);
+        }
+
+        .project-text p {
+            font-size: 1.05rem;
+            color: var(--primary-text);
+        }
+
+        .project-gallery {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        /* New style for a gallery with a single, centered image */
+        .project-gallery-single {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .project-gallery-single .image-placeholderalt {
+            width: 100%;
+            max-width: 450px; /* Controls the maximum size of the single image */
+        }
+
+
+        .image-placeholder {
+            aspect-ratio: 4 / 3;
+            background-color: var(--background-light);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            overflow: hidden; /* Ensures the image fits within the border-radius */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-placeholder:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* This will cover the area, cropping if necessary */
+        }
+        .image-placeholderalt {
+            aspect-ratio: 1 / 1;
+            background-color: var(--background-light);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            overflow: hidden; /* Ensures the image fits within the border-radius */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-placeholderalt:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .image-placeholderalt img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* This will cover the area, cropping if necessary */
+        }
+
+
+        /*
+        ==========================================================================
+        * EXPECTATIONS PAGE STYLES
+        ==========================================================================
+        */
+        .page-hero {
+            background-color: var(--background-light);
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .page-hero h1 {
+            font-size: 3.5rem;
+            margin: 0 0 1rem 0;
+            position: relative;
+            display: inline-block;
+            color: var(--primary-dark-blue);
+        }
+
+        .page-hero h1::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-electric-blue);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        #expectations {
+             padding-bottom: 80px;
+        }
+
+        .intro-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem auto;
+            font-size: 1.15rem;
+            color: var(--primary-text);
+        }
+
+        .expectations-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .expectation-column h2 {
+            font-size: 2rem;
+            color: var(--primary-dark-blue);
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--accent-electric-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .expectation-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .expectation-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .expectation-item i {
+            font-size: 1.25rem;
+            color: var(--accent-electric-blue);
+            margin-top: 6px;
+            width: 25px;
+            text-align: center;
+        }
+
+        .expectation-item p {
+            margin: 0;
+            color: var(--primary-text);
+        }
+
+        .expectation-item strong {
+            color: var(--primary-dark-blue);
+            font-weight: 600;
+        }
+
+        .policy-section {
+            padding: 2.5rem;
+            margin-top: 3rem;
+            border-radius: var(--border-radius);
+            background-color: var(--background-light);
+            border-left: 5px solid var(--accent-electric-blue);
+        }
+
+        .policy-section h2 {
+            font-size: 1.8rem;
+            color: var(--primary-dark-blue);
+            margin-top: 0;
+        }
+
+        .policy-section p {
+            color: var(--primary-text);
+        }
+
+        .policy-section a {
+            color: var(--accent-electric-blue);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .policy-section a:hover {
+            text-decoration: underline;
+        }
+
+        /*
+        ==========================================================================
+        * FOOTER
+        ==========================================================================
+        */
+        footer#contact {
+            background: var(--background-white);
+            color: var(--secondary-text); padding: 50px 0;
+        }
+        .footer-content {
+            display: flex; justify-content: space-between;
+            align-items: center; flex-wrap: wrap;
+            gap: 1rem; text-align: center;
+            max-width: 1200px; margin: 0 auto;
+        }
+        .footer-logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-dark-blue); }
+        .footer-logo span { font-weight: 400; color: var(--accent-electric-blue); }
+        .footer-links a {
+            color: var(--secondary-text); text-decoration: none;
+            margin: 0 10px; transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--accent-electric-blue); }
+        .footer-links i { margin-right: 5px; }
+
+        /*
+        ==========================================================================
+        * ANIMATIONS & RESPONSIVENESS
+        ==========================================================================
+        */
+        .reveal {
+            opacity: 0;
+            transform: translateY(80px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 992px) {
+            .project-item,
+            .project-item:nth-child(even) {
+                flex-direction: column;
+                gap: 3rem;
+            }
+            .project-gallery {
+                width: 100%;
+            }
+            .expectations-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links { display: none; }
+            .search-bar { display: none; }
+            .projects-hero h1, .page-hero h1 { font-size: 2.8rem; }
+            .project-text h2 { font-size: 1.8rem; }
+        }
+
+        @media (max-width: 480px) {
+             .project-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======================= NAVIGATION BAR ======================= -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-logo">AYYAVOO<span>LAB</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="project.html">Our Projects</a></li>
+                <li class="dropdown">
+                    <span class="dropdown-toggle">Our Team</span>
+                    <ul class="dropdown-content">
+
+                        <li><a href="Our te.html">Our Group</a></li>
+                        <li><a href="aboutDrayyavoo.html">About Dr. Ayyavoo</a></li>
+                        <li><a href="alumni.html">Our Alumni</a></li>
+                    </ul>
+                </li>
+                <li><a href="index.html#join-us">Join Us</a></li>
+            </ul>
+            <div class="search-bar">
+                <input type="search" placeholder="Search...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- ======================= PROJECTS SECTION ======================= -->
+        <section id="projects">
+            <header class="projects-hero">
+                <div class="container">
+                    <h1>Our Research Projects</h1>
+                </div>
+            </header>
+            <div class="container" style="padding-top: 100px;">
+                <!-- Project 1: Brain Organoids -->
+                <div class="project-item reveal">
+                    <div class="project-text">
+                        <h2>Developing <span class="highlight">3D Brain Organoid Models</span> to Study HIV-1–Associated Neurocognitive Disorders</h2>
+                        <p>HIV-associated neurocognitive disorder (HAND) remains a major health challenge. To understand how HIV damages the brain, our lab is pioneering the use of 3D brain organoids—miniature, stem-cell-derived models that recreate the human brain's architecture. These organoids incorporate neurons, astrocytes, and microglia, allowing us to observe how HIV alters neural-glial communication and triggers inflammation. Notably, we were the first to develop brain organoids containing microglia, offering unprecedented insight into how the brain’s immune system contributes to HIV neuropathogenesis.</p>
+                    </div>
+                    <div class="project-gallery-single">
+                        <div class="image-placeholderalt">
+                            <img src="Organoid.png" alt="A 3D brain organoid model">
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Project 2: HIV Latency -->
+                <div class="project-item reveal">
+                    <div class="project-text">
+                        <h2>Understanding <span class="highlight">HIV Latency in the Brain</span> and Developing Therapeutic Strategies to Eliminate It</h2>
+                        <p>Even with lifelong treatment, HIV can hide in brain cells like microglia and astrocytes, evading medications. This latent virus is a major barrier to a cure. Our team is developing advanced 3D brain organoid models that include microglia from HIV-positive donors to uncover how the virus establishes and maintains latency. By studying the molecular signatures of infected cells, we aim to identify novel therapeutic targets that can either reactivate and clear the virus or permanently silence it, bringing us closer to a functional cure for HIV.</p>
+                    </div>
+
+
+
+                </div>
+                <!-- Project 3: Spatial Transcriptomics -->
+                <div class="project-item reveal">
+                    <div class="project-text">
+                        <h2><span class="highlight">Spatial Transcriptomics:</span> Mapping the Molecular Landscape of the Brain</h2>
+                        <p>Spatial transcriptomics is transforming neuroscience by allowing scientists to visualize gene activity directly within the context of brain tissue. Our lab uses this powerful technology to map how HIV infection reshapes the brain’s molecular networks. By integrating gene-expression data with spatial information, we can pinpoint how the virus alters pathways involved in inflammation, synaptic signaling, and neuronal survival. These studies provide unprecedented insight into HAND and help identify new molecular targets to preserve brain health.</p>
+                    </div>
+                    <div class="project-gallery">
+                        <div class="image-placeholder">
+                           <img src="Screenshot 2025-11-20 at 10.01.59 AM.png" alt="Gene expression heatmap overlaid on brain tissue">
+                        </div>
+                        <div class="image-placeholder">
+                            <img src="Screenshot 2025-11-20 at 10.03.07 AM.png" alt="Cellular cluster plot from transcriptomics data">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================= EXPECTATIONS SECTION ======================= -->
+        <section id="expectations">
+            <header class="page-hero">
+                <div class="container">
+                    <h1>Our Lab Expectations</h1>
+                </div>
+            </header>
+            <div class="container" style="padding-top: 80px; max-width: 1100px;">
+                <p class="intro-text">
+                    At the Ayyavoo Lab, we believe that scientific progress depends on collaboration, respect, and integrity. Our research environment is built on shared responsibility, clear communication, and a deep commitment to excellence. Every member of the lab—whether a student, staff member, or collaborator—is expected to uphold these values in their work and interactions.
+                </p>
+                <div class="expectations-grid">
+                    <div class="expectation-column">
+                        <h2>What You Can Expect From Me</h2>
+                        <ul class="expectation-list">
+                            <li class="expectation-item"><i class="fa-solid fa-person-chalkboard"></i><p><strong>Guidance and mentorship:</strong> I am committed to helping you grow as a scientist. You can expect me to provide direction, constructive feedback, and opportunities that support your academic and professional goals.</p></li>
+                            <li class="expectation-item"><i class="fa-solid fa-comments"></i><p><strong>Open communication:</strong> My door is always open for honest discussion about research, progress, or any concerns you may have.</p></li>
+                            <li class="expectation-item"><i class="fa-solid fa-calendar-check"></i><p><strong>Regular meetings:</strong> I will meet with you regularly to review data, interpret results, and plan next steps together.</p></li>
+                            <li class="expectation-item"><i class="fa-solid fa-lightbulb"></i><p><strong>Encouragement toward independence:</strong> My goal is to help you think critically and take ownership of your work while providing the support you need along the way.</p></li>
+                            <li class="expectation-item"><i class="fa-solid fa-arrow-up-right-from-square"></i><p><strong>Professional development:</strong> I will assist with editing manuscripts, preparing presentations or proposals, and connecting you to opportunities that will help advance your career.</p></li>
+                            <li class="expectation-item"><i class="fa-solid fa-shield-halved"></i><p><strong>A safe and supportive environment:</strong> Safety, respect, and inclusivity are top priorities. You can always come to me with concerns about safety, security, or well-being, and those discussions will remain confidential.</p></li>
+                            <li class="expectation-item"><i class="fa-solid fa-handshake-angle"></i><p><strong>Commitment to accountability:</strong> I will provide fair, consistent evaluations and ensure that your efforts are recognized and aligned with your goals.</p></li>
+                        </ul>
+                    </div>
+                    <div class="expectation-column">
+                        <h2>What I Expect From Lab Members</h2>
+                        <ul class="expectation-list">
+                            <li class="expectation-item"><i class="fa-solid fa-microscope"></i><p><strong>Scientific integrity:</strong> Record data accurately, follow protocols carefully, and be transparent about your results. Honesty in all aspects of research is non-negotiable.</p></li>
+                            <li class="expectation-item"><i class="fa-solid fa-book"></i><p><strong>Organization and documentation:</strong> Maintain clear, up-to-date lab notebooks and digital records. Label samples and reagents properly, and save data to the designated lab drive.</p></li>
+                            <li class="expectation-item"><i class="fa-solid fa-users"></i><p><strong>Respect and professionalism:</strong> Treat every member of the lab with courtesy and professionalism. Disagreements should be handled constructively.</p></li>
+                            <li class="expectation-item"><i class="fa-solid fa-biohazard"></i><p><strong>Safety first:</strong> Always follow lab safety guidelines, wear appropriate protective equipment, and report any incidents immediately.</p></li>
+                            <li class="expectation-item"><i class="fa-solid fa-clock"></i><p><strong>Responsibility and reliability:</strong> Arrive prepared, meet deadlines, and communicate clearly about your schedule and progress. Everyone’s time is valuable.</p></li>
+                            <li class="expectation-item"><i class="fa-solid fa-gears"></i><p><strong>Collaboration and teamwork:</strong> Share knowledge freely, assist others when possible, and maintain a cooperative attitude. Science is a collective effort.</p></li>
+                            <li class="expectation-item"><i class="fa-solid fa-bullhorn"></i><p><strong>Communication:</strong> Keep the team informed about your work. If you encounter obstacles, share them early so we can problem-solve together.</p></li>
+                            <li class="expectation-item"><i class="fa-solid fa-check-to-slot"></i><p><strong>Accountability:</strong> Own your mistakes, learn from them, and move forward. Errors are part of science—what matters most is how we respond to them.</p></li>
+                            <li class="expectation-item"><i class="fa-solid fa-recycle"></i><p><strong>Respect for shared resources:</strong> Clean up after yourself, label your materials, and leave shared spaces better than you found them.</p></li>
+                            <li class="expectation-item"><i class="fa-solid fa-brain"></i><p><strong>Continuous learning:</strong> Take initiative to learn new techniques, ask thoughtful questions, and engage deeply with the science behind your work.</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="policy-section">
+                    <h2>Academic and Professional Conduct</h2>
+                    <p>All members of the Ayyavoo Lab are expected to uphold the highest standards of academic honesty and professional ethics. Plagiarism, data fabrication, or any form of misconduct will not be tolerated. Each individual’s contributions should reflect their own effort, and collaboration should always be properly credited.</p>
+                    <p>The University’s Academic Integrity Guidelines provide additional expectations for ethical conduct in research and scholarship: <a href="https://www.provost.pitt.edu/faculty/academic-integrity-freedom/academic-integrity-guidelines" target="_blank">Academic Integrity Guidelines</a></p>
+                </div>
+                <div class="policy-section">
+                    <h2>Commitment to Safety, Equity, and Inclusion</h2>
+                    <p>The Ayyavoo Lab is committed to maintaining a safe, inclusive, and equitable environment for all members. Harassment, discrimination, or misconduct of any kind will not be tolerated. The University requires all faculty and staff to report any instances of sexual misconduct to the Title IX office so that affected individuals can receive support and resources.</p>
+                    <p>We encourage open dialogue about any concerns related to safety, inclusion, or personal well-being. Everyone deserves to work in an environment that fosters respect, trust, and opportunity.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======================= FOOTER ======================= -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-logo">AYYAVOO<span>LAB</span></div>
+            <div class="footer-links">
+                <a href="mailto:velpandi@pitt.edu"><i class="fa-solid fa-envelope"></i> Contact</a>
+                <a href="https://www.pitt.edu" target="_blank"><i class="fa-solid fa-university"></i> University of Pittsburgh</a>
+                <a href="https://publichealth.pitt.edu/" target="_blank"><i class="fa-solid fa-school"></i> School of Public Health</a>
+            </div>
+            <p>&copy; 2025 Ayyavoo Lab. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Add shadow to navbar on scroll
+        const navbar = document.getElementById('navbar');
+        window.onscroll = function () {
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        };
+
+        // Fade-in reveal animation on scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Initial check on page load
+    </script>
+</body>
+</html>

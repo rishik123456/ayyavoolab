@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF--8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayyavoo Lab | University of Pittsburgh</title>
+    <!-- Professional Icon Pack: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" href="favicon-180.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <style>
+        /*
+        ==========================================================================
+        * ROOT VARIABLES & GLOBAL STYLES (ELECTRIC BLUE THEME)
+        ==========================================================================
+        */
+        :root {
+            --primary-dark-blue: #E6F1FF;    /* Brightest text for headings */
+            --primary-slate-gray: #00000;   /* Muted light gray for secondary text */
+            --accent-electric-blue: #007BFF; /* Bright, modern blue for accents (Unchanged) */
+            --accent-darker-blue: #0056b3;   /* For button/link hover states (Unchanged) */
+            --accent-yellow-highlight: #FFC107; /* Amber yellow for subtle highlights (Unchanged) */
+            --background-light: #002A5C;    /* Was: #112240 - Now Lighter electric blue for cards/sections */
+            --background-white: #0056b3;    /* Was: #0A192F - Now Deep electric blue for main background */
+
+            --primary-text: #CCD6F6;         /* Light gray-blue for body text */
+            --secondary-text: #8892B0;      /* Muted light gray */
+            --border-color: #233554;         /* Dark blue border */
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.15);
+            --shadow-md: 0 5px 15px rgba(0,0,0,0.2);
+            --border-radius: 0.5rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            line-height: 1.7;
+            color: var(--primary-text);
+            background-color: var(--background-white);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 100px 0;
+            overflow: hidden;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-dark-blue);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+            color: var(--primary-slate-gray);
+        }
+
+        /* Reveal animation */
+        .reveal {
+            position: relative;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: 1s all ease;
+        }
+
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /*
+        ==========================================================================
+        * NAVIGATION BAR
+        ==========================================================================
+        */
+        .navbar {
+            background: rgba(0, 21, 46, 0.85); /* Dark, semi-transparent background based on new theme*/
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .navbar-scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-dark-blue);
+            text-decoration: none;
+        }
+        .navbar-logo span {
+            font-weight: 400;
+            color: var(--accent-electric-blue);
+        }
+
+        .navbar-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-links li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        .navbar-links a, .dropdown-toggle {
+            color: var(--primary-slate-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding-bottom: 5px;
+            position: relative;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .navbar-links a::after, .dropdown-toggle::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-electric-blue);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-links a:hover, .dropdown:hover .dropdown-toggle {
+            color: var(--accent-electric-blue);
+        }
+
+        .navbar-links a:hover::after, .dropdown:hover .dropdown-toggle::after {
+            width: 100%;
+        }
+
+        .navbar-right-items {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input {
+            border: 1px solid var(--border-color);
+            background-color: var(--background-light);
+            color: var(--primary-text);
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            transition: width 0.3s ease-in-out;
+            width: 150px;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--accent-electric-blue);
+            width: 200px;
+        }
+
+        .search-bar button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: -30px;
+            color: var(--primary-slate-gray);
+        }
+
+        .pitt-logo-link img {
+            height: 45px;
+            width: auto;
+            transition: transform 0.3s ease;
+            filter: brightness(0) invert(1); /* Inverts logo colors to look good on dark background */
+        }
+
+        .pitt-logo-link:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Dropdown Styles */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 150%; left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--background-white);
+            min-width: 200px;
+            box-shadow: var(--shadow-md);
+            border-radius: var(--border-radius);
+            z-index: 1;
+            list-style: none;
+            padding: 0.5rem 0; margin: 0;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, top 0.3s ease, visibility 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block; opacity: 1;
+            visibility: visible; top: 100%;
+        }
+
+        .dropdown-content a {
+            font-weight: 400; color: var(--primary-slate-gray);
+            padding: 12px 20px; text-decoration: none;
+            display: block; text-align: left; font-size: 0.95rem;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--background-light);
+            color: var(--accent-electric-blue);
+        }
+        .dropdown-content a::after { display: none; }
+
+        /*
+        ==========================================================================
+        * HERO SECTION
+        ==========================================================================
+        */
+        #home {
+            min-height: 90vh; display: flex;
+            align-items: center; padding-top: 0;
+            background: var(--background-white);
+        }
+
+        .hero-content {
+            display: flex; align-items: center;
+            justify-content: space-between; gap: 3rem;
+        }
+
+        .hero-text { max-width: 50%; animation: slideInFromLeft 1s ease-out; }
+
+        .hero-text .lab-name {
+            font-size: 1.2rem; font-weight: 600;
+            color: var(--accent-yellow-highlight);
+            margin-bottom: 1rem; text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.8rem; line-height: 1.2;
+            margin-bottom: 1.5rem; color: var(--primary-dark-blue);
+        }
+
+        .hero-text p {
+            font-size: 1.1rem; color: var(--primary-slate-gray);
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            background: var(--accent-electric-blue);
+            color: white; /* Button text should be bright white */
+            padding: 15px 30px; text-decoration: none;
+            border-radius: var(--border-radius); font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--accent-darker-blue);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-image-placeholder {
+            width: 50%; height: 440px;
+            background: url('logo.png') no-repeat center center/cover;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        /*
+        ==========================================================================
+        * OUR MISSION SECTION
+        ==========================================================================
+        */
+        #mission { background-color: var(--background-light); }
+
+        .mission-content p {
+            text-align: center; max-width: 800px;
+            margin: 0 auto; font-size: 1.25rem;
+            line-height: 1.8; color: var(--primary-text);
+        }
+
+        /*
+        ==========================================================================
+        * OUR APPROACH SECTION
+        ==========================================================================
+        */
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .approach-card {
+            background: var(--background-light); /* Use lighter navy for cards */
+            padding: 2.5rem 2rem; text-align: center;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .approach-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .approach-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-yellow-highlight);
+        }
+
+        .approach-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-dark-blue);
+            margin-bottom: 1rem;
+        }
+
+        /*
+        ==========================================================================
+        * GALLERY SECTIONS (UPDATED FOR DYNAMIC LAYOUT)
+        ==========================================================================
+        */
+        #lab-gallery { background-color: var(--background-light); }
+        #research-gallery { background-color: var(--background-white); }
+
+        .gallery-grid {
+            display: grid;
+            gap: 1.5rem;
+            /* Using 4 columns on desktop for a more dynamic "mosaic" layout */
+            grid-template-columns: repeat(4, 1fr);
+            /* We'll set a standard row height that items can span across */
+            grid-auto-rows: 260px;
+            grid-auto-flow: dense; /* Allows items to fill gaps, creating the mosaic effect */
+        }
+
+        .gallery-item {
+            /* Height is now controlled by row spans, not a fixed value */
+            background-color: #e9ecef;
+            border-radius: var(--border-radius);
+            background-position: center;
+            background-size: cover;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* These rules create the dynamic mosaic. They only apply on desktop. */
+        .gallery-item:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .gallery-item:nth-child(3) {
+            grid-row: span 2;
+        }
+
+        .gallery-item:nth-child(5) {
+            grid-column: span 2;
+        }
+
+        .gallery-item:nth-child(7) {
+            grid-column: span 2;
+        }
+
+        /* This class is no longer used, so we reset it to avoid conflicts. */
+        .gallery-item.wide { grid-column: auto; }
+
+
+        /*
+        ==========================================================================
+        * HIV OVERVIEW & STATS SECTION
+        ==========================================================================
+        */
+        .hiv-text-content {
+            max-width: 800px;
+            margin: 0 auto 4rem auto;
+            text-align: center;
+        }
+
+        .hiv-text-content h3 {
+            color: var(--primary-dark-blue); font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .who-quote {
+            background-color: var(--background-light);
+            border-left: 5px solid var(--accent-electric-blue);
+            padding: 1.5rem;
+            margin: 2rem auto;
+            font-style: italic;
+            color: var(--primary-slate-gray);
+            text-align: left;
+        }
+
+        .who-quote footer {
+            margin-top: 1rem;
+            font-style: normal;
+            font-weight: 600;
+            color: var(--primary-dark-blue);
+        }
+
+        .charts-container {
+            background-color: var(--background-light);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+        }
+
+        .our-world-charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .chart-card {
+            background-color: var(--background-white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            padding: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .chart-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .chart-card iframe {
+            border-radius: calc(var(--border-radius) - 1rem);
+        }
+
+
+        /*
+        ==========================================================================
+        * JOIN US SECTION
+        ==========================================================================
+        */
+        #join-us {
+            background-color: var(--background-light); /* Use lighter navy */
+            color: var(--primary-text); text-align: center;
+        }
+
+        #join-us .section-title { color: var(--primary-dark-blue); }
+        #join-us .section-subtitle { color: rgba(204, 214, 246, 0.8); } /* Lighter text color */
+        #join-us .btn {
+            background: var(--primary-dark-blue);
+            color: var(--background-white); /* Dark blue text */
+        }
+        #join-us .btn:hover {
+            background: #fff;
+            color: var(--background-white);
+        }
+        #join-us .btn i { margin-left: 8px; }
+
+        /*
+        ==========================================================================
+        * FOOTER
+        ==========================================================================
+        */
+        footer#contact {
+            background: var(--background-white); /* Main dark background */
+            color: var(--secondary-text); padding: 50px 0;
+        }
+
+        .footer-content {
+            display: flex; justify-content: space-between;
+            align-items: center; flex-wrap: wrap;
+            gap: 1rem; text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem; font-weight: bold;
+            color: var(--primary-dark-blue);
+        }
+        .footer-logo span {
+            font-weight: 400;
+            color: var(--accent-electric-blue);
+        }
+
+        .footer-links a {
+            color: var(--secondary-text); text-decoration: none;
+            margin: 0 10px; transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--accent-electric-blue); }
+        .footer-links i { margin-right: 5px; }
+
+        /*
+        ==========================================================================
+        * SCROLL TO TOP BUTTON
+        ==========================================================================
+        */
+        #scrollTopBtn {
+            display: none; position: fixed;
+            bottom: 20px; right: 30px; z-index: 99;
+            border: none; outline: none;
+            background-color: var(--accent-electric-blue);
+            color: white; cursor: pointer; padding: 15px;
+            border-radius: 50%; font-size: 18px;
+            width: 50px; height: 50px;
+            box-shadow: var(--shadow-md);
+            transition: background-color 0.3s, opacity 0.5s, visibility 0.5s;
+        }
+
+        #scrollTopBtn:hover { background-color: var(--accent-darker-blue); }
+
+        /*
+        ==========================================================================
+        * ANIMATIONS & RESPONSIVENESS
+        ==========================================================================
+        */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideInFromLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @media (max-width: 992px) {
+            .navbar .container { flex-wrap: wrap; justify-content: space-between; }
+            .navbar-links { order: 3; width: 100%; justify-content: center; margin-top: 1rem; }
+            .navbar-right-items { order: 2; }
+            .hero-content { flex-direction: column; text-align: center; }
+            .hero-text { max-width: 100%; }
+            .hero-image-placeholder {
+                width: 100%; max-width: 500px;
+                height: 400px; margin-top: 2rem;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 260px; /* Keep row height consistent */
+            }
+            /* Reset all special spans for a simpler tablet layout */
+            .gallery-item:nth-child(n) {
+                grid-column: auto;
+                grid-row: auto;
+            }
+            /* We can make the first item wide on tablet for some visual interest */
+            .gallery-item:nth-child(1) {
+                grid-column: span 2;
+            }
+            .our-world-charts-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links { display: none; }
+            .search-bar { display: none; } /* Hide search bar on very small screens to make space */
+            .pitt-logo-link img { height: 40px; }
+            .section-title { font-size: 2.2rem; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 260px; /* Keep row height consistent */
+            }
+            /* Reset all special spans for mobile */
+            .gallery-item:nth-child(n) {
+                grid-column: auto;
+                grid-row: auto;
+            }
+            .footer-content { flex-direction: column; gap: 1.5rem; }
+            .charts-container { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ======================= SCROLL TO TOP BUTTON ======================= -->
+    <button onclick="scrollToTop()" id="scrollTopBtn" title="Go to top">&#8679;</button>
+
+    <!-- ======================= NAVIGATION BAR ======================= -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-logo">AYYAVOO<span>LAB</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="project.html">Our Research</a></li>
+                <li class="dropdown">
+                    <span class="dropdown-toggle">Our Team</span>
+                    <ul class="dropdown-content">
+
+                        <li><a href="Our te.html">Our Group</a></li>
+                        <li><a href="aboutDrayyavoo.html">About Dr. Ayyavoo</a></li>
+                        <li><a href="expectations.html">Our Alumni</a></li>
+                    </ul>
+                </li>
+                <li><a href="#join-us">Join Us</a></li>
+            </ul>
+            <div class="navbar-right-items">
+                <div class="search-bar">
+                    <input type="search" placeholder="Search...">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </div>
+                <a href="https://www.pitt.edu" target="_blank" class="pitt-logo-link">
+                    <img src="logo.png" alt="University of Pittsburgh Shield">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ======================= HERO SECTION ======================= -->
+    <header id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <p class="lab-name">Ayyavoo Lab // University of Pittsburgh</p>
+                    <h1>Pioneering Research in Neurovirology</h1>
+                    
+                    <a href="project.html" class="btn">Explore Our Research</a>
+                </div>
+                <div class="hero-image-placeholder"></div>
+            </div>
+        </div>
+    </header>
+    <!-- ======================= HIV OVERVIEW & STATS ======================= -->
+    <section id="hiv-overview" class="reveal">
+        <div class="container">
+            <h2 class="section-title">Understanding HIV & Its Global Impact</h2>
+
+            <div class="hiv-text-content">
+                <h3>A Persistent Global Challenge</h3>
+                <p>Human Immunodeficiency Virus (HIV) attacks the immune system, and if untreated, can lead to Acquired Immunodeficiency Syndrome (AIDS). While antiretroviral therapy (ART) allows people with HIV to live long, healthy lives, the virus remains a major public health issue. Early in the infection, HIV can enter the brain, leading to HIV-associated neurocognitive disorders (HAND), which can cause confusion, memory loss, and behavioral changes.</p>
+                 <blockquote class="who-quote">
+                    <p>"An estimated 40.8 million [37.0 – 45.6 million] people were living with HIV at the end of 2024."</p>
+                    <footer>—World Health Organization</footer>
+                </blockquote>
+            </div>
+
+
+            </div>
+
+        </div>
+    </section>
+
+    <main>
+        <!-- ======================= OUR MISSION ======================= -->
+        <section id="mission" class="reveal">
+            <div class="container">
+                <h2 class="section-title">Our Mission</h2>
+                <div class="mission-content">
+                    <p>The Ayyavoo Laboratory is dedicated to understanding how HIV-1 impacts the human nervous system and identifying strategies to combat HIV-associated complications. Led by Dr. Velpandi Ayyavoo, our research integrates molecular virology, neuroscience, and advanced laboratory models to study the mechanisms of HIV pathogenesis in both the peripheral and central nervous systems (CNS).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================= OUR APPROACH ======================= -->
+        <section id="approach" class="reveal">
+            <div class="container">
+                <h2 class="section-title">Our Approach</h2>
+                <p class="section-subtitle">Our research uses several complementary approaches to study the mechanisms of HIV in the central nervous system. These techniques allow us to investigate how the virus establishes reservoirs and contributes to neuroinflammation.</p>
+                <div class="approach-grid">
+                    <div class="approach-card">
+                        <div class="icon"><i class="fa-solid fa-brain"></i></div>
+                        <h3>3D Brain Organoid Models</h3>
+                        <p>These models mimic the human brain, allowing us to study how HIV infection changes communication between neurons, astrocytes, and microglia.</p>
+                    </div>
+                    <div class="approach-card">
+                        <div class="icon"><i class="fa-solid fa-virus"></i></div>
+                        <h3>Latency Studies</h3>
+                        <p>Using organoids with microglia from HIV-positive donors, we explore how the virus hides and develop strategies to eliminate these reservoirs.</p>
+                    </div>
+                    <div class="approach-card">
+                        <div class="icon"><i class="fa-solid fa-dna"></i></div>
+                        <h3>Spatial Transcriptomics</h3>
+                        <p>This technique maps gene activity, helping us see how HIV reshapes molecular networks and contributes to inflammation and cognitive decline.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+      
+
+        <!-- ======================= RESEARCH GALLERY ======================= -->
+
+        <!-- ======================= LAB GALLERY ======================= -->
+        <section id="lab-gallery" class="reveal">
+            <div class="container">
+                <h2 class="section-title">Inside Our Lab</h2>
+                <p class="section-subtitle">A glimpse into our research environment, collaborative team, and the technology that drives our discoveries.</p>
+                <div class="gallery-grid">
+                    <div class="gallery-item" style="background-image: url('Group.jpg');"></div>
+                    <div class="gallery-item" style="background-image: url('IMG_2890.jpeg');"></div>
+                    <div class="gallery-item" style="background-image: url('IMG_2163.jpg');"></div>
+                    <div class="gallery-item" style="background-image: url('75318.jpg');"></div>
+                    <div class="gallery-item" style="background-image: url('2595502087527511714.jpg');"></div>
+                    <div class="gallery-item" style="background-image: url('6086.jpg');"></div>
+                    <div class="gallery-item" style="background-image: url('8a60cdc0-c984-480f-b471-c308ff90a20f.JPG');"></div>
+                    <div class="gallery-item" style="background-image: url('IMG_2182.jpeg');"></div>
+                    <div class="gallery-item" style="background-image: url('20251030_185329~2.jpg');"></div>
+                    <div class="gallery-item" style="background-image: url('lab\ photo.jpg');"></div>
+
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================= JOIN US SECTION ======================= -->
+        <section id="join-us">
+            <div class="container">
+                <h2 class="section-title">Join Our Team</h2>
+                <p class="section-subtitle">We are always looking for passionate and driven individuals to join our quest to understand and combat neuroAIDS. If you are a prospective graduate student or postdoctoral fellow with a background in virology or neuroscience, we encourage you to get in touch.</p>
+                <a href="mailto:velpandi@pitt.edu" class="btn">Contact Us <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======================= FOOTER ======================= -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">AYYAVOO<span>LAB</span></div>
+                <div class="footer-links">
+                    <a href="#"><i class="fa-solid fa-envelope"></i> Contact</a>
+                    <a href="#"><i class="fa-solid fa-university"></i> University of Pittsburgh</a>
+                    <a href="#"><i class="fa-solid fa-school"></i> School of Public Health</a>
+                </div>
+                <p>&copy; 2025 Ayyavoo Lab. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom JavaScript for animations -->
+    <script>
+        // Add shadow to navbar on scroll
+        const navbar = document.getElementById('navbar');
+        window.onscroll = function () {
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+            scrollFunction();
+        };
+
+        // Fade-in reveal animation on scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                } else {
+                    reveals[i].classList.remove("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Initial call
+
+        // Scroll to top button logic
+        var scrollTopBtn = document.getElementById("scrollTopBtn");
+        function scrollFunction() {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                scrollTopBtn.style.display = "block";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        }
+        function scrollToTop() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+// Sample charity data (you can replace it with your own data)
+ <link rel="stylesheet" type="text/css" href="style.css">
+const charities = [
+  { name: "Charity A", description: "Lorem ipsum dolor sit amet." },
+  { name: "Charity B", description: "Consectetur adipiscing elit." },
+  { name: "Charity C", description: "Sed do eiusmod tempor incididunt." }
+];
+
+// Function to dynamically create charity list items
+function createCharityItem(charity) {
+  const charityItem = document.createElement("div");
+  charityItem.classList.add("charityItem");
+  
+  const charityName = document.createElement("div");
+  charityName.classList.add("charityName");
+  charityName.textContent = charity.name;
+  
+  const charityDescription = document.createElement("div");
+  charityDescription.classList.add("charityDescription");
+  charityDescription.textContent = charity.description;
+  
+  charityItem.appendChild(charityName);
+  charityItem.appendChild(charityDescription);
+  
+  return charityItem;
+}
+
+// Function to populate the charity list
+function populateCharityList() {
+  const charityList = document.getElementById("charityList");
+  
+  charities.forEach(function(charity) {
+    const charityItem = createCharityItem(charity);
+    charityList.appendChild(charityItem);
+  });
+}
+
+// Call the function to populate the charity list on page load
+populateCharityList();
+

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Dr. Velpandi Ayyavoo | Ayyavoo Lab</title>
+    <!-- Professional Icon Pack: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*
+        ==========================================================================
+        * ROOT VARIABLES & GLOBAL STYLES (ELECTRIC BLUE THEME)
+        ==========================================================================
+        */
+        :root {
+            --primary-dark-blue: #E6F1FF;    /* Brightest text for headings */
+            --primary-slate-gray: #8892B0;   /* Muted light gray for secondary text */
+            --accent-electric-blue: #007BFF; /* Bright, modern blue for accents */
+            --accent-darker-blue: #0056b3;   /* For button/link hover states */
+            --background-light: #002A5C;    /* Lighter electric blue for cards/sections */
+            --background-white: #0056b3;    /* Deep electric blue for main background */
+            --primary-text: #CCD6F6;         /* Light gray-blue for body text */
+            --secondary-text: #8892B0;      /* Muted light gray */
+            --border-color: #233554;         /* Dark blue border */
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.15);
+            --shadow-md: 0 5px 15px rgba(0,0,0,0.2);
+            --border-radius: 0.5rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            line-height: 1.7;
+            color: var(--primary-text);
+            background-color: var(--background-white);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /*
+        ==========================================================================
+        * NAVIGATION BAR (CONSISTENT)
+        ==========================================================================
+        */
+        .navbar {
+            background: rgba(0, 21, 46, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-dark-blue);
+            text-decoration: none;
+        }
+
+        .navbar-logo span {
+            font-weight: 400;
+            color: var(--accent-electric-blue);
+        }
+
+        .navbar-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-links li {
+            margin-left: 35px;
+            position: relative;
+        }
+
+        .navbar-links a, .dropdown-toggle {
+            color: var(--primary-slate-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding-bottom: 5px;
+            position: relative;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .navbar-links a::after, .dropdown-toggle::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-electric-blue);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-links a:hover, .dropdown:hover .dropdown-toggle {
+            color: var(--accent-electric-blue);
+        }
+
+        .navbar-links a:hover::after, .dropdown:hover .dropdown-toggle::after {
+            width: 100%;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 150%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--background-white);
+            min-width: 200px;
+            box-shadow: var(--shadow-md);
+            border-radius: var(--border-radius);
+            z-index: 1;
+            list-style: none;
+            padding: 0.5rem 0;
+            margin: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, top 0.3s ease, visibility 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            top: 100%;
+        }
+
+        .dropdown-content a {
+            font-weight: 400;
+            color: var(--primary-slate-gray);
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .dropdown-content a::after {
+            display: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--background-light);
+            color: var(--accent-electric-blue);
+        }
+
+        /*
+        ==========================================================================
+        * PI BIO PAGE STYLES
+        ==========================================================================
+        */
+        .pi-page-header {
+            padding: 80px 0;
+            background-color: var(--background-light);
+        }
+
+        .header-grid {
+            display: flex;
+            gap: 4rem;
+            align-items: flex-start;
+        }
+
+        .header-info {
+            flex: 2.5;
+        }
+
+        .header-info h1 {
+            font-size: 3.2rem;
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-dark-blue);
+        }
+
+        .header-info .pi-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-electric-blue);
+            margin: 0;
+        }
+
+        .contact-card {
+            flex: 1;
+            background: var(--background-light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .image-placeholder {
+            height: 300px;
+            background: var(--background-light) url('Velpandi\ Ayyavoo\ for\ web.png') no-repeat center center/contain;
+        }
+
+        .contact-info {
+            padding: 1.5rem;
+        }
+
+        .contact-info p {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.95rem;
+            color: var(--secondary-text);
+            line-height: 1.6;
+        }
+        .contact-info a {
+            color: var(--accent-electric-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .pi-main-content {
+            padding: 80px 0;
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+        }
+
+        .content-section h2 {
+            font-size: 2.2rem;
+            color: var(--primary-dark-blue);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .content-section h3 {
+            font-size: 1.5rem;
+            color: var(--accent-electric-blue);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section p, .content-section li {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--primary-text);
+        }
+
+        .education-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .education-list li {
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--accent-electric-blue);
+            margin-bottom: 1rem;
+        }
+
+        .education-list li strong {
+            display: block;
+            color: var(--primary-dark-blue);
+        }
+
+        .education-list li span {
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+        }
+
+        .publications-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .publications-list li {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .publications-list li:last-child {
+            border-bottom: none;
+        }
+
+        .pubmed-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-electric-blue);
+            text-decoration: none;
+        }
+
+        .pubmed-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Video Container Styles */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background-color: #000;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+
+        /*
+        ==========================================================================
+        * FOOTER
+        ==========================================================================
+        */
+        footer {
+            background: #093769;
+            color: var(--secondary-text);
+            padding: 50px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark-blue);
+        }
+
+        .footer-logo span {
+            font-weight: 400;
+            color: var(--accent-electric-blue);
+        }
+
+        /*
+        ==========================================================================
+        * RESPONSIVENESS
+        ==========================================================================
+        */
+        @media (max-width: 992px) {
+            .header-grid {
+                flex-direction: column;
+            }
+            .contact-card {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links { display: none; }
+            .header-info h1 { font-size: 2.5rem; }
+            .content-section h2 { font-size: 1.8rem; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ======================= NAVIGATION BAR ======================= -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-logo">AYYAVOO<span>LAB</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="project.html">Projects</a></li>
+                <li class="dropdown">
+                    <span class="dropdown-toggle">About</span>
+                    <ul class="dropdown-content">
+
+                        <li><a href="Our te.html">Our Group</a></li>
+                        <li><a href="expectations.html">Our Alumni</a></li>
+                        <li><a href="project.html">Our Project</a></li>
+                    </ul>
+                </li>
+                <li><a href="index.html#join-us">Join Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ======================= PI HEADER SECTION ======================= -->
+    <header class="pi-page-header">
+        <div class="container">
+            <div class="header-grid">
+                <div class="header-info">
+                    <h1>Velpandi Ayyavoo, PhD</h1>
+                    <p class="pi-title">Professor and Vice Chair for Education, IDM</p>
+                    <p class="pi-title">Graduate Programs Director, Infectious Diseases and Microbiology</p>
+                </div>
+                <div class="contact-card">
+                    <div class="image-placeholder"></div>
+                    <div class="contact-info">
+                        <p><strong>CONTACT</strong><br>
+                        2117 Public Health<br>
+                        130 DeSoto Street<br>
+                        Pittsburgh, PA 15261</p>
+                        <p><a href="mailto:velpandi@pitt.edu">velpandi@pitt.edu</a><br>
+                        412-624-3070</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ======================= MAIN CONTENT ======================= -->
+    <main class="pi-main-content">
+        <div class="container">
+
+            <!-- Biography Section -->
+            <section class="content-section">
+                <p>Dr. Ayyavoo is a molecular virologist with over three decades of expertise in HIV-1 virology. Her research laboratory is dedicated to unraveling the intricate mechanisms through which HIV-1 instigates pathogenesis in humans, impacting both the peripheral and central nervous systems (CNS) of people living with HIV (PWH). Leveraging autopsied tissue samples, her laboratory has conducted pioneering investigations revealing substantial alterations in neurons among HIV patients experiencing cognitive disorders, known as HIV-associated neurocognitive disorder (HAND), as opposed to HIV patients without such complications.</p>
+            </section>
+
+            <!-- Video Section -->
+            <section class="content-section">
+                <h2>The other side of Dr.Ayyavoo</h2>
+                <div class="video-container">
+                    <iframe src="https://drive.google.com/file/d/1tRot7TiDji_TQRtz-Ph-olEaAZabCOhC/preview" allow="autoplay"></iframe>
+                </div>
+            </section>
+
+            <!-- Research Focus Section -->
+            <section class="content-section">
+                <h2>Research Focus</h2>
+                <h3>Developing brain organoid model to study HIV-1 associated neurocognitive disorder</h3>
+                <p>Understanding and combating HIV-associated neurocognitive disorder (HAND) is of paramount importance. One innovative approach involves the utilization of advanced in vitro models, such as brain organoids, which offer a platform for studying neurodegenerative diseases in a controlled laboratory environment. Brain organoids, sophisticated three-dimensional miniature models of the human brain grown from stemcells, represent a promising tool for studying neurodegenerative diseases. Dr. Ayyavoo’s laboratory is the first to develop the brain organoids with microglia.</p>
+
+                <h3>Understanding HIV latency in CNS and to develop therapeutic targets to activate the virus</h3>
+                <p>Despite significant progress, eradicating HIV entirely remains challenging. The central nervous system (CNS) serves as a viral reservoir. Utilizing a 3D brain organoid model with human microglia sourced from HIV-1 positive donors, we aim to characterize transcriptional changes. This knowledge may lead to the discovery of novel therapeutic interventions targeting latency-inducing and/or silencing antivirals for the CNS compartment. Additionally, we aim to validate and assess whether these target molecules can traverse the blood-brain barrier and effectively reach their intended cellular targets in the brain.</p>
+            </section>
+
+            <!-- Education & Training Section -->
+            <section class="content-section">
+                <h2>Education & Training</h2>
+                <ul class="education-list">
+                    <li>
+                        <strong>Doctor of Philosophy</strong>
+                        <span>1991 | Madurai Kamaraj University, India</span>
+                    </li>
+                    <li>
+                        <strong>Postdoctoral Fellow</strong>
+                        <span>1991-1993 | The Wistar Institute</span>
+                    </li>
+                    <li>
+                        <strong>Research Associate</strong>
+                        <span>1994-1998 | The University of Pennsylvania</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Teaching Section -->
+            <section class="content-section">
+                <h2>Teaching</h2>
+                <ul>
+                    <li>IDM 2001 - Molecular Biology of Microbiol Pathogens</li>
+                    <li>IDM 2023 - Laboratory Methods</li>
+                    <li>IDM 2025 - Seminar Series & Journal Club</li>
+                    <li>IDM 2010 - Pathogen Biology</li>
+                    <li>IDM 2014 - Functional Genomics</li>
+                </ul>
+            </section>
+
+            <!-- Selected Publications Section -->
+            <section class="content-section">
+                <h2>Selected Publications</h2>
+                <ol class="publications-list">
+                    <li>Dos Reis RS, Susa S, Wagner MCE, Ayyavoo V. (2024). Human Immunodeficiency Virus (HIV-1) Targets Astrocytes via Cell-Free and Cell-Associated Infection. J Integr Neurosci. 23: 172.</li>
+                    <li>Dos Reis RS, Wagner MCE, McKenna S, Ayyavoo V. (2024). Neuroinflammation driven by Human Immunodeficiency Virus-1 (HIV-1) directs the expression of long noncoding RNA RP11-677M14.2 resulting in dysregulation of Neurogranin in vivo and in vitro. J. Neuroinflammation 21: 107.</li>
+                    <li>Dos Reis RS, Selvam S, Wagner MCE, Ayyavoo V. (2024). Modeling HIV-1 infection in CNS via infected monocytes using immunocompetent 3D brain Organoids. Methods Mol Biol. 2807: 261-270.</li>
+                    <li>Ayyavoo, V. (2021). Modeling Human Viral Diseases: Trials and Triumphs. Frontiers in Virology, Editorial comments in launching the journal.</li>
+                    <li>Dos Reis RS, Sant S, Keeney H, Wagner MCE, Ayyavoo V. (2020). Modeling HIV-1 neuropathogenesis using three-dimensional human brain organoids (hBORGs) with HIV-1 infected microglia. Scientific Reports 10(1):15209.</li>
+                </ol>
+                <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Ayyavoo%2C+V&sort=date" target="_blank" class="pubmed-link">For a full list of publications, see PubMed &rarr;</a>
+            </section>
+            </div>
+            </main>
+
+
+    <!-- ======================= FOOTER ======================= -->
+    <footer id="contact">
+        <div class="container footer-content">
+            <div class="footer-logo">AYYAVOO<span>LAB</span></div>
+            <p>&copy; 2025 Ayyavoo Lab. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
