@@ -697,6 +697,40 @@
                     navLinks.classList.toggle('active');
                 });
             }
+            
+            // --- Mobile Dropdown Toggle Logic for Touch Screens ---
+            const dropdowns = document.querySelectorAll('.navbar-links .dropdown');
+            dropdowns.forEach(dropdown => {
+                const toggle = dropdown.querySelector('.dropdown-toggle');
+                if (toggle) {
+                    toggle.addEventListener('click', function(e) {
+                        // Check if we are in mobile view (where the hamburger button is visible)
+                        const isMobile = window.getComputedStyle(toggler).display !== 'none';
+                        if (isMobile) {
+                            e.preventDefault(); // Prevent default behavior on touch
+                            const dropdownContent = dropdown.querySelector('.dropdown-content');
+                            
+                            // Check if the current dropdown is already open
+                            const isCurrentlyOpen = dropdownContent.style.display === 'block';
+                            
+                            // First, close all other open dropdowns to avoid clutter
+                            document.querySelectorAll('.navbar-links .dropdown-content').forEach(content => {
+                                if (content !== dropdownContent) {
+                                    content.style.display = 'none';
+                                }
+                            });
+                            
+                            // Toggle the current dropdown
+                            if (!isCurrentlyOpen) {
+                                dropdownContent.style.display = 'block';
+                            } else {
+                                dropdownContent.style.display = 'none';
+                            }
+                        }
+                    });
+                }
+            });
+
 
             // --- Bio Dropdown Logic ---
             const teamCards = document.querySelectorAll('.team-card');
