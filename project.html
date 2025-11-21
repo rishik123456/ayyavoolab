@@ -76,6 +76,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap; /* Allow wrapping for mobile menu */
         }
 
         .navbar-logo {
@@ -174,6 +175,16 @@
             background-color: var(--background-light); color: var(--accent-electric-blue);
         }
         .dropdown-content a::after { display: none; }
+
+        /* === NEW: Hamburger Menu Button === */
+        .navbar-toggler {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--primary-dark-blue);
+            cursor: pointer;
+        }
 
         /*
         ==========================================================================
@@ -465,8 +476,6 @@
         }
 
         @media (max-width: 992px) {
-            .navbar .container { flex-wrap: wrap; }
-            .navbar-links { order: 3; width: 100%; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
             .project-item,
             .project-item:nth-child(even) {
                 flex-direction: column;
@@ -481,10 +490,53 @@
         }
 
         @media (max-width: 768px) {
-            /* This rule was removed to ensure the navbar links are visible on mobile: .navbar-links { display: none; } */
             .search-bar { display: none; }
             .projects-hero h1, .page-hero h1 { font-size: 2.8rem; }
             .project-text h2 { font-size: 1.8rem; }
+
+            /* === NEW: Mobile Nav and Footer Styles === */
+            .navbar .container {
+                flex-wrap: wrap;
+            }
+            .navbar-toggler {
+                display: block; /* Show the hamburger button */
+            }
+
+            .navbar-links {
+                display: none; /* Hide links by default */
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                background: rgba(0, 21, 46, 0.98);
+                padding: 1rem 0;
+                order: 3; /* Make sure it appears below the logo and button */
+            }
+
+            .navbar-links.active {
+                display: flex; /* Show links when toggled */
+            }
+
+            .navbar-links li {
+                margin: 0.75rem 0;
+            }
+
+            .dropdown-content {
+                position: static;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                background-color: transparent;
+                padding-left: 20px;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block; /* Ensure it stays visible */
+            }
+
+            .footer-content {
+                flex-direction: column; /* Stack footer items vertically */
+                gap: 1.5rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -500,13 +552,18 @@
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="index.html" class="navbar-logo">AYYAVOO<span>LAB</span></a>
+
+            <!-- NEW: Hamburger Button -->
+            <button class="navbar-toggler" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
             <ul class="navbar-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="project.html">Our Projects</a></li>
                 <li class="dropdown">
                     <span class="dropdown-toggle">Our Team</span>
                     <ul class="dropdown-content">
-
                         <li><a href="Our te.html">Our Group</a></li>
                         <li><a href="aboutDrayyavoo.html">About Dr. Ayyavoo</a></li>
                         <li><a href="alumni.html">Our Alumni</a></li>
@@ -627,14 +684,16 @@
 
     <!-- ======================= FOOTER ======================= -->
     <footer id="contact">
-        <div class="footer-content">
-            <div class="footer-logo">AYYAVOO<span>LAB</span></div>
-            <div class="footer-links">
-                <a href="mailto:velpandi@pitt.edu"><i class="fa-solid fa-envelope"></i> Contact</a>
-                <a href="https://www.pitt.edu" target="_blank"><i class="fa-solid fa-university"></i> University of Pittsburgh</a>
-                <a href="https://publichealth.pitt.edu/" target="_blank"><i class="fa-solid fa-school"></i> School of Public Health</a>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">AYYAVOO<span>LAB</span></div>
+                <div class="footer-links">
+                    <a href="mailto:velpandi@pitt.edu"><i class="fa-solid fa-envelope"></i> Contact</a>
+                    <a href="https://www.pitt.edu" target="_blank"><i class="fa-solid fa-university"></i> University of Pittsburgh</a>
+                    <a href="https://publichealth.pitt.edu/" target="_blank"><i class="fa-solid fa-school"></i> School of Public Health</a>
+                </div>
+                <p>&copy; 2025 Ayyavoo Lab. All Rights Reserved.</p>
             </div>
-            <p>&copy; 2025 Ayyavoo Lab. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -663,6 +722,17 @@
         }
         window.addEventListener("scroll", reveal);
         reveal(); // Initial check on page load
+
+        // NEW: Mobile Navbar Toggle Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggler = document.querySelector('.navbar-toggler');
+            const navLinks = document.querySelector('.navbar-links');
+            if (toggler && navLinks) {
+                toggler.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+            }
+        });
     </script>
 </body>
 </html>
