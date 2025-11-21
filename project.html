@@ -465,6 +465,8 @@
         }
 
         @media (max-width: 992px) {
+            .navbar .container { flex-wrap: wrap; }
+            .navbar-links { order: 3; width: 100%; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
             .project-item,
             .project-item:nth-child(even) {
                 flex-direction: column;
@@ -479,7 +481,7 @@
         }
 
         @media (max-width: 768px) {
-            .navbar-links { display: none; }
+            /* This rule was removed to ensure the navbar links are visible on mobile: .navbar-links { display: none; } */
             .search-bar { display: none; }
             .projects-hero h1, .page-hero h1 { font-size: 2.8rem; }
             .project-text h2 { font-size: 1.8rem; }
