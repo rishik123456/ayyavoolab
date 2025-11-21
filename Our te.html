@@ -75,6 +75,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap; /* Allow wrapping for mobile menu */
         }
 
         .navbar-logo {
@@ -198,6 +199,15 @@
         }
         .dropdown-content a::after { display: none; }
 
+        /* === NEW: Hamburger Menu Button === */
+        .navbar-toggler {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--primary-dark-blue);
+            cursor: pointer;
+        }
 
         /*
         ==========================================================================
@@ -374,13 +384,17 @@
         }
 
         .footer-content {
-            display: flex; justify-content: space-between;
-            align-items: center; flex-wrap: wrap;
-            gap: 1rem; text-align: center;
+            display: flex; 
+            justify-content: space-between;
+            align-items: center; 
+            flex-wrap: wrap;
+            gap: 1rem; 
+            text-align: center;
         }
 
         .footer-logo {
-            font-size: 1.5rem; font-weight: bold;
+            font-size: 1.5rem; 
+            font-weight: bold;
             color: var(--primary-dark-blue);
         }
         .footer-logo span {
@@ -391,7 +405,8 @@
         .footer-links a {
             color: var(--secondary-text); 
             text-decoration: none;
-            margin: 0 10px; transition: color 0.3s ease;
+            margin: 0 10px; 
+            transition: color 0.3s ease;
         }
         .footer-links a:hover { color: var(--accent-electric-blue); }
         .footer-links i { margin-right: 5px; }
@@ -419,11 +434,55 @@
         }
 
         @media (max-width: 768px) {
-            .navbar-links { display: none; }
-            .search-bar { display: none; }
-            .team-hero h1 { font-size: 2.8rem; }
+            .search-bar { 
+                display: none; 
+            }
+            .team-hero h1 { 
+                font-size: 2.8rem; 
+            }
             .team-grid {
                 grid-template-columns: 1fr;
+            }
+
+            /* === NEW: Mobile Nav and Footer Styles === */
+            .navbar-toggler {
+                display: block; /* Show the hamburger button */
+            }
+
+            .navbar-links {
+                display: none; /* Hide links by default */
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                background: rgba(0, 21, 46, 0.98);
+                padding: 1rem 0;
+                order: 3; /* Make sure it appears below the logo and button */
+            }
+
+            .navbar-links.active {
+                display: flex; /* Show links when toggled */
+            }
+
+            .navbar-links li {
+                margin: 0.75rem 0;
+            }
+
+            .dropdown-content {
+                position: static;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                background-color: transparent;
+                padding-left: 20px;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block; /* Ensure it stays visible */
+            }
+
+            .footer-content {
+                flex-direction: column; /* Stack footer items vertically */
+                gap: 1.5rem;
             }
         }
     </style>
@@ -434,16 +493,20 @@
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="index.html" class="navbar-logo">AYYAVOO<span>LAB</span></a>
+
+            <!-- NEW: Hamburger Button -->
+            <button class="navbar-toggler" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
             <ul class="navbar-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="project.html">Our Projects</a></li>
                 <li class="dropdown">
                     <span class="dropdown-toggle">About</span>
                     <ul class="dropdown-content">
-                       
                         <li><a href="Our te.html">Our Group</a></li>
                         <li><a href="aboutDrayyavoo.html">About Dr. Ayyavoo</a></li>
-
                     </ul>
                 </li>
                 <li><a href="index.html#join-us">Join Us</a></li>
@@ -620,27 +683,32 @@
             }
         }
         window.addEventListener("scroll", reveal);
-        // Initial check in case elements are already in view
-        reveal();
+        reveal(); // Initial check
 
-        // Bio dropdown logic
+        // NEW: All JS logic wrapped in DOMContentLoaded for safety
         document.addEventListener('DOMContentLoaded', function() {
-            const teamCards = document.querySelectorAll('.team-card');
 
+            // --- Mobile Navbar Toggle Logic ---
+            const toggler = document.querySelector('.navbar-toggler');
+            const navLinks = document.querySelector('.navbar-links');
+            if (toggler && navLinks) {
+                toggler.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+            }
+
+            // --- Bio Dropdown Logic ---
+            const teamCards = document.querySelectorAll('.team-card');
             teamCards.forEach(card => {
                 const bio = card.querySelector('.bio');
                 const button = card.querySelector('.read-more-btn');
 
-                // Approximate height for 5-6 lines (0.95rem font * 1.6 line-height * 6 lines)
-                const collapsedPixelHeight = 144; 
+                const collapsedPixelHeight = 144; // Approx height for 5-6 lines
 
-                // Check if the bio text is overflowing its collapsed state
                 if (bio.scrollHeight > collapsedPixelHeight) {
-                    // If it overflows, add the collapsed class and show the button
                     bio.classList.add('collapsed');
                     button.style.display = 'inline-flex';
 
-                    // Add click event to toggle the bio's expanded state
                     button.addEventListener('click', () => {
                         bio.classList.toggle('expanded');
                         bio.classList.toggle('collapsed');
